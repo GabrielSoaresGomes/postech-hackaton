@@ -1,0 +1,56 @@
+server:
+  port: 2005
+  shutdown: graceful
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  application:
+    name: postech-hackaton
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postech-hackaton
+    driver-class-name: org.postgresql.Driver
+    username: root
+    password: root
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+    show-sql: true
+    database: postgresql
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,shutdown
+  endpoint:
+    shutdown:
+      access: read_only
+
+logging:
+  level:
+    root: INFO
+    org.example: INFO
+    org.springframework: INFO
+
+security:
+  jwt:
+    secret: "your-secret-key-change-in-production-environment-with-minimum-32-characters"
+    expire-length: 3600000
+

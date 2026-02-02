@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=postech-hackaton
+    ports:
+      - "5432:5432"
+
+  app:
+    image: postech-hackaton:01
+    build: .
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postech-hackaton
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
+    ports:
+      - "2005:2005"
+    depends_on:
+      - postgres
+
