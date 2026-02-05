@@ -54,3 +54,7 @@ security:
     secret: "your-secret-key-change-in-production-environment-with-minimum-32-characters"
     expire-length: 3600000
 
+ai:
+  base-url: http://host.docker.internal:11434
+  ollama:
+    model: llama3.1
