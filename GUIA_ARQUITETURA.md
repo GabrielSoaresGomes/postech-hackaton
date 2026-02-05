@@ -9,6 +9,14 @@ Este é um projeto de exemplo estruturado com **Clean Architecture**, **Spring S
 - Docker e Docker Compose
 - Maven 3.9.9
 
+### Instalando o Ollama e seu modelo necessário
+```text 
+1- Instalar o Ollama para seu sistema operacional. (https://ollama.com/)
+2- Assim que a instalação finalizar, já abrirá a GUI ( Não necessária ) e permitirá comandos no terminal/powershell
+3- Instalar o modelo que usamos no projeto através do terminal/powershell:
+>>> ollama pull llama3.1
+```
+
 ### Instalação e Execução
 
 #### Opção 1: Com Docker Compose
