@@ -26,7 +26,7 @@ public class PrioritizeMedicalCareUseCase implements UseCase<Long, MedicalCare> 
 
         log.info("Atendimento encontrado. Priorizando atendimento");
         var prioritizedMedicalCare = medicalCare.withStatus(MedicalCareStatus.IN_PROGRESS);
-        log.info("aqui está o atendimento priorizado: {}", prioritizedMedicalCare);
+
         this.medicalCareGateway.update(prioritizedMedicalCare, id);
 
         return prioritizedMedicalCare;
