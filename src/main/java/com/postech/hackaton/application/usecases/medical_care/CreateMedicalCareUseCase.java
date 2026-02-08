@@ -49,7 +49,6 @@ public class CreateMedicalCareUseCase implements UseCase<CreateMedicalCareReques
 
             log.info("Triagem IA aplicada: priority={}, confidence={}", ai.priority(), ai.confidence());
         } catch (Exception e) {
-            // Não bloqueia criação se IA falhar
             log.warn("Falha na triagem IA. Prosseguindo sem IA. Motivo: {}", e.getMessage());
         }
 
