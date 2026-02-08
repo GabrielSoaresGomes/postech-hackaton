@@ -22,10 +22,27 @@ public class MedicalCareEntityMapper {
                 null,
                 dto.priorityAccess(),
                 dto.phoneNumber(),
-                MedicalCareStatus.IN_PROGRESS,
+                MedicalCareStatus.PENDING,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null
+        );
+    }
+
+    public static MedicalCareEntity toMedicalCareEntity(MedicalCareDTO dto) {
+        return new MedicalCareEntity(
+                dto.id(),
+                dto.document(),
+                dto.age(),
+                dto.priority(),
+                dto.description(),
+                dto.aiJustification(),
+                dto.priorityAccess(),
+                dto.phoneNumber(),
+                dto.status(),
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                dto.deletedAt()
         );
     }
 

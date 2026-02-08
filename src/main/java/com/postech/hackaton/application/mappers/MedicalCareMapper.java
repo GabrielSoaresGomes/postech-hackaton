@@ -44,4 +44,21 @@ public class MedicalCareMapper {
                 medicalCare.getPhoneNumber()
         );
     }
+
+    public static MedicalCareDTO toMedicalCareDto(MedicalCare entity) {
+        return new MedicalCareDTO(
+                entity.getId(),
+                entity.getDocument(),
+                entity.getAge(),
+                entity.getPriority(),
+                entity.getDescription(),
+                entity.getAiJustification(),
+                entity.getPriorityAccess(),
+                entity.getPhoneNumber(),
+                entity.getStatus(),
+                entity.getCreatedAt(),
+                entity.getLastModifiedAt(),
+                entity.getDeletedAt()
+        );
+    }
 }
