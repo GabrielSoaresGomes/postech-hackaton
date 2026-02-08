@@ -1,8 +1,8 @@
 package com.postech.hackaton.application.usecases;
 
 import com.postech.hackaton.application.gateways.AiTriageGateway;
-import com.postech.hackaton.dtos.transfer.AiTriageRequest;
-import com.postech.hackaton.dtos.transfer.AiTriageResponse;
+import com.postech.hackaton.dtos.transfer.ai_triage.AiTriageRequestDTO;
+import com.postech.hackaton.dtos.transfer.ai_triage.AiTriageResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ public class ClassifyTriageWithAiUseCase {
 
     private final AiTriageGateway aiTriageGateway;
 
-    public AiTriageResponse execute(Map<String, Object> triageData) {
+    public AiTriageResponseDTO execute(Map<String, Object> triageData) {
         String prompt = buildPrompt(triageData);
-        return aiTriageGateway.classify(new AiTriageRequest(triageData, prompt));
+        return aiTriageGateway.classify(new AiTriageRequestDTO(triageData, prompt));
     }
 
     private String buildPrompt(Map<String, Object> triageData) {

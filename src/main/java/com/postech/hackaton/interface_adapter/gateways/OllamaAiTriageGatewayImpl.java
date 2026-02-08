@@ -2,8 +2,8 @@ package com.postech.hackaton.interface_adapter.gateways;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postech.hackaton.application.gateways.AiTriageGateway;
-import com.postech.hackaton.dtos.transfer.AiTriageRequest;
-import com.postech.hackaton.dtos.transfer.AiTriageResponse;
+import com.postech.hackaton.dtos.transfer.ai_triage.AiTriageRequestDTO;
+import com.postech.hackaton.dtos.transfer.ai_triage.AiTriageResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class OllamaAiTriageGatewayImpl implements AiTriageGateway {
     private String model;
 
     @Override
-    public AiTriageResponse classify(AiTriageRequest request) {
+    public AiTriageResponseDTO classify(AiTriageRequestDTO request) {
         Map<String, Object> payload = Map.of(
                 "model", model,
                 "stream", false,
@@ -52,7 +52,7 @@ public class OllamaAiTriageGatewayImpl implements AiTriageGateway {
         String json = extractFirstJsonObject(content);
 
         try {
-            return objectMapper.readValue(json, AiTriageResponse.class);
+            return objectMapper.readValue(json, AiTriageResponseDTO.class);
         } catch (Exception e) {
             throw new IllegalStateException("Falha ao parsear JSON da IA: " + content, e);
         }

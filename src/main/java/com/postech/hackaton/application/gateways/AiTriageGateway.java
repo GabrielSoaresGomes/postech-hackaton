@@ -1,8 +1,8 @@
 package com.postech.hackaton.application.gateways;
 
-import com.postech.hackaton.dtos.transfer.AiTriageRequest;
-import com.postech.hackaton.dtos.transfer.AiTriageResponse;
+import com.postech.hackaton.dtos.transfer.ai_triage.AiTriageRequestDTO;
+import com.postech.hackaton.dtos.transfer.ai_triage.AiTriageResponseDTO;
 
 public interface AiTriageGateway {
-    AiTriageResponse classify(AiTriageRequest request);
+    AiTriageResponseDTO classify(AiTriageRequestDTO request);
 }
