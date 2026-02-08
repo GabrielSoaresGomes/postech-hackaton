@@ -40,8 +40,8 @@ public class MedicalCareEntityMapper {
                 dto.priorityAccess(),
                 dto.phoneNumber(),
                 dto.status(),
-                LocalDateTime.now(),
-                LocalDateTime.now(),
+                dto.createdAt(),
+                dto.lastModifiedAt(),
                 dto.deletedAt()
         );
     }

@@ -42,7 +42,12 @@ public class MedicalCareGatewayImpl implements MedicalCareGateway {
     @Override
     public MedicalCare update(MedicalCare entity, Long id) {
         var medicalCareDTO = MedicalCareMapper.toMedicalCareDto(entity);
-        var updatedMedicalCareDTO = this.repository.update(medicalCareDTO)
+
+        if (medicalCareDTO.id() != null && !medicalCareDTO.id().equals(id)) {
+            throw new IllegalArgumentException("ID do atendimento no corpo difere do ID da URL.");
+        }
+
+        var updatedMedicalCareDTO = this.repository.update(medicalCareDTO, id)
                 .orElseThrow(() -> new ResourceNotFoundException("Atendimento não encontrado para o id %d".formatted(id)));
         return MedicalCareMapper.toMedicalCare(updatedMedicalCareDTO);
     }

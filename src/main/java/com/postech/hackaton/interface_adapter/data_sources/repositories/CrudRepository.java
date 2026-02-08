@@ -6,6 +6,6 @@ public interface CrudRepository<NE, E, ID> {
     Optional<E> findById(ID id);
     List<E> findAll(int size, long offset);
     E save(NE entity);
-    Optional<E> update(E entity);
+    Optional<E> update(E entity, Long id);
     Integer delete(ID id);
 }

@@ -51,7 +51,7 @@ public class MedicalCareRestController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/prioritize")
     @Operation(summary = "Prioritize medical care")
-    public MedicalCareResponseDTO create(@RequestParam("id") long id) {
+    public MedicalCareResponseDTO prioritize(@RequestParam("id") long id) {
         return this.medicalCareController.prioritize(id);
     }
 }

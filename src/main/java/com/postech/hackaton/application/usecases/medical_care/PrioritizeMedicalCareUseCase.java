@@ -19,16 +19,9 @@ public class PrioritizeMedicalCareUseCase implements UseCase<Long, MedicalCare> 
         log.info("Buscando atendimento com id  {} para priorização" , id);
         var medicalCare = this.medicalCareGateway.findById(id);
 
-        if (medicalCare == null) {
-            log.error("Atendimento não encontrado para o id {}", id);
-            throw new RuntimeException("Atendimento não encontrado para o id %d".formatted(id));
-        }
-
         log.info("Atendimento encontrado. Priorizando atendimento");
         var prioritizedMedicalCare = medicalCare.withStatus(MedicalCareStatus.IN_PROGRESS);
 
-        this.medicalCareGateway.update(prioritizedMedicalCare, id);
-
-        return prioritizedMedicalCare;
+        return this.medicalCareGateway.update(prioritizedMedicalCare, id);
     }
 }
