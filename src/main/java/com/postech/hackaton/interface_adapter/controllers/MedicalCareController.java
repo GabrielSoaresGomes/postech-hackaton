@@ -8,6 +8,8 @@ import com.postech.hackaton.application.services.ai_triage.AiTriagePromptFactory
 import com.postech.hackaton.application.usecases.medical_care.CreateMedicalCareUseCase;
 import com.postech.hackaton.application.usecases.medical_care.FindMedicalCareByIdUseCase;
 import com.postech.hackaton.application.usecases.medical_care.ListMedicalCareUseCase;
+import com.postech.hackaton.application.usecases.medical_care.PrioritizeMedicalCareUseCase;
+import com.postech.hackaton.application.usecases.medical_care.PrioritizeMedicalCareUseCase;
 import com.postech.hackaton.dtos.requests.medical_care.CreateMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.requests.medical_care.ListMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.responses.medical_care.MedicalCareResponseDTO;
@@ -21,6 +23,7 @@ public class MedicalCareController {
     private final ListMedicalCareUseCase listMedicalCareUseCase;
     private final FindMedicalCareByIdUseCase findMedicalCareByIdUseCase;
     private final CreateMedicalCareUseCase createMedicalCareUseCase;
+    private final PrioritizeMedicalCareUseCase prioritizeMedicalCareUseCase;
 
     public MedicalCareController(
             MedicalCareRepository repository,
@@ -31,6 +34,7 @@ public class MedicalCareController {
 
         this.listMedicalCareUseCase = new ListMedicalCareUseCase(medicalCareGateway);
         this.findMedicalCareByIdUseCase = new FindMedicalCareByIdUseCase(medicalCareGateway);
+        this.prioritizeMedicalCareUseCase = new PrioritizeMedicalCareUseCase(medicalCareGateway);
 
         var extractor = new AiTriageDataExtractor();
         var promptFactory = new AiTriagePromptFactory(objectMapper);
@@ -61,5 +65,11 @@ public class MedicalCareController {
         var createdMedicalCare = this.createMedicalCareUseCase.execute(request);
 
         return MedicalCarePresenter.medicalCareToMedicalCareResponseDTO(createdMedicalCare);
+    }
+
+    public MedicalCareResponseDTO prioritize(Long id) {
+        var prioritizedMedicalCare = this.prioritizeMedicalCareUseCase.execute(id);
+
+        return MedicalCarePresenter.medicalCareToMedicalCareResponseDTO(prioritizedMedicalCare);
     }
 }

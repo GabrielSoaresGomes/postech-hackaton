@@ -76,4 +76,21 @@ public class MedicalCare {
                 null
         );
     }
+
+    public MedicalCare withStatus(@NonNull MedicalCareStatus newStatus) {
+        return new MedicalCare(
+                this.id,
+                this.document,
+                this.age,
+                this.priority,
+                this.description,
+                this.aiJustification,
+                this.priorityAccess,
+                this.phoneNumber,
+                newStatus,
+                this.createdAt,
+                LocalDateTime.now(),
+                this.deletedAt
+        );
+    }
 }

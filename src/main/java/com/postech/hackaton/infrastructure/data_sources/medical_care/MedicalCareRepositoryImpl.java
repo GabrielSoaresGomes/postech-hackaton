@@ -42,9 +42,17 @@ public class MedicalCareRepositoryImpl implements MedicalCareRepository {
     }
 
     @Override
-    public Optional<MedicalCareDTO> update(MedicalCareDTO entity) {
-        // TODO implementar
-        return Optional.empty();
+    public Optional<MedicalCareDTO> update(MedicalCareDTO medicalCareDTO, Long id) {
+        var existingEntity = this.jpaRepository.existsById(id);
+
+        if (!existingEntity) {
+            return Optional.empty();
+        }
+
+        var entity = MedicalCareEntityMapper.toMedicalCareEntity(medicalCareDTO);
+        var savedEntity = this.jpaRepository.save(entity);
+
+        return Optional.of(MedicalCareEntityMapper.toMedicalCareDTO(savedEntity));
     }
 
     @Override
