@@ -1,5 +1,7 @@
 package com.postech.hackaton.infrastructure.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.postech.hackaton.application.gateways.AiTriageGateway;
 import com.postech.hackaton.dtos.requests.medical_care.CreateMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.requests.medical_care.ListMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.responses.medical_care.MedicalCareResponseDTO;
@@ -20,8 +22,12 @@ import java.util.List;
 public class MedicalCareRestController {
     private final MedicalCareController medicalCareController;
 
-    public MedicalCareRestController(MedicalCareRepository medicalCareRepository) {
-        this.medicalCareController = new MedicalCareController(medicalCareRepository);
+    public MedicalCareRestController(
+            MedicalCareRepository medicalCareRepository,
+            AiTriageGateway aiTriageGateway,
+            ObjectMapper objectMapper
+    ) {
+        this.medicalCareController = new MedicalCareController(medicalCareRepository, aiTriageGateway, objectMapper);
     }
 
     @GetMapping

@@ -1,5 +1,10 @@
 package com.postech.hackaton.interface_adapter.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.postech.hackaton.application.gateways.AiTriageGateway;
+import com.postech.hackaton.application.services.ai_triage.AiTriageApplier;
+import com.postech.hackaton.application.services.ai_triage.AiTriageDataExtractor;
+import com.postech.hackaton.application.services.ai_triage.AiTriagePromptFactory;
 import com.postech.hackaton.application.usecases.medical_care.CreateMedicalCareUseCase;
 import com.postech.hackaton.application.usecases.medical_care.FindMedicalCareByIdUseCase;
 import com.postech.hackaton.application.usecases.medical_care.ListMedicalCareUseCase;
@@ -17,12 +22,27 @@ public class MedicalCareController {
     private final FindMedicalCareByIdUseCase findMedicalCareByIdUseCase;
     private final CreateMedicalCareUseCase createMedicalCareUseCase;
 
-    public MedicalCareController(MedicalCareRepository repository) {
+    public MedicalCareController(
+            MedicalCareRepository repository,
+            AiTriageGateway aiTriageGateway,
+            ObjectMapper objectMapper
+    ) {
         var medicalCareGateway = new MedicalCareGatewayImpl(repository);
 
         this.listMedicalCareUseCase = new ListMedicalCareUseCase(medicalCareGateway);
         this.findMedicalCareByIdUseCase = new FindMedicalCareByIdUseCase(medicalCareGateway);
-        this.createMedicalCareUseCase = new CreateMedicalCareUseCase(medicalCareGateway);
+
+        var extractor = new AiTriageDataExtractor();
+        var promptFactory = new AiTriagePromptFactory(objectMapper);
+        var applier = new AiTriageApplier();
+
+        this.createMedicalCareUseCase = new CreateMedicalCareUseCase(
+                medicalCareGateway,
+                aiTriageGateway,
+                extractor,
+                promptFactory,
+                applier
+        );
     }
 
     public List<MedicalCareResponseDTO> list(ListMedicalCareRequestDTO request) {

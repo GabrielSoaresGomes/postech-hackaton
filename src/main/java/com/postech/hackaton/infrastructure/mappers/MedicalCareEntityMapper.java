@@ -17,9 +17,9 @@ public class MedicalCareEntityMapper {
                 null,
                 dto.document(),
                 dto.age(),
-                MedicalCarePriority.P5,
+                dto.priority() != null ? dto.priority() : MedicalCarePriority.P5,
                 dto.description(),
-                null,
+                dto.aiJustification(),
                 dto.priorityAccess(),
                 dto.phoneNumber(),
                 MedicalCareStatus.IN_PROGRESS,
@@ -28,6 +28,7 @@ public class MedicalCareEntityMapper {
                 null
         );
     }
+
 
     public static MedicalCareDTO toMedicalCareDTO(MedicalCareEntity entity) {
         return new MedicalCareDTO(
