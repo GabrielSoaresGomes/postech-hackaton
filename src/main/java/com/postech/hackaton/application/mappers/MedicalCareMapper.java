@@ -39,7 +39,9 @@ public class MedicalCareMapper {
         return new NewMedicalCareDTO(
                 medicalCare.getDocument(),
                 medicalCare.getAge(),
+                medicalCare.getPriority(),
                 medicalCare.getDescription(),
+                medicalCare.getAiJustification(),
                 medicalCare.getPriorityAccess(),
                 medicalCare.getPhoneNumber()
         );
