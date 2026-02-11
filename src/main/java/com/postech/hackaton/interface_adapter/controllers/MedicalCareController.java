@@ -87,4 +87,18 @@ public class MedicalCareController {
 
         return MedicalCarePresenter.medicalCareToMedicalCareResponseDTO(prioritizedMedicalCare);
     }
+
+    public MedicalCareResponseDTO callNext(boolean withPriority) {
+        var nextMedicalCare = withPriority
+                ? this.listMedicalCareWithPriorityUseCase.execute(new ListMedicalCareRequestDTO(0, 1)).stream().findFirst().orElse(null)
+                : this.listMedicalCareWithoutPriorityUseCase.execute(new ListMedicalCareRequestDTO(0, 1)).stream().findFirst().orElse(null);
+
+        if (nextMedicalCare == null) {
+            return null;
+        }
+
+        var prioritizedMedicalCare = this.prioritizeMedicalCareUseCase.execute(nextMedicalCare.getId());
+
+        return MedicalCarePresenter.medicalCareToMedicalCareResponseDTO(prioritizedMedicalCare);
+    }
 }
