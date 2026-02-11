@@ -4,6 +4,7 @@ import com.postech.hackaton.dtos.transfer.medical_care.MedicalCareDTO;
 import com.postech.hackaton.dtos.transfer.medical_care.NewMedicalCareDTO;
 import com.postech.hackaton.infrastructure.mappers.MedicalCareEntityMapper;
 import com.postech.hackaton.interface_adapter.data_sources.repositories.MedicalCareRepository;
+import com.postech.hackaton.domain.enums.MedicalCareStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -51,7 +52,7 @@ public class MedicalCareRepositoryImpl implements MedicalCareRepository {
             return this.findAll(size, offset, sort);
         }
 
-        return this.jpaRepository.findByPriorityAccess(priorityAccess, pageRequest)
+        return this.jpaRepository.findByPriorityAccessAndStatus(priorityAccess, MedicalCareStatus.PENDING, pageRequest)
                 .stream()
                 .map(MedicalCareEntityMapper::toMedicalCareDTO)
                 .toList();

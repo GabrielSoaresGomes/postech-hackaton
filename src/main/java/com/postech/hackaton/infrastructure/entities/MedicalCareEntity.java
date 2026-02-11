@@ -41,6 +41,7 @@ public class MedicalCareEntity {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private MedicalCareStatus status;
 
