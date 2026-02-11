@@ -2,6 +2,7 @@ package com.postech.hackaton.interface_adapter.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postech.hackaton.application.gateways.AiTriageGateway;
+import com.postech.hackaton.application.gateways.EmailGateway;
 import com.postech.hackaton.application.services.ai_triage.AiTriageApplier;
 import com.postech.hackaton.application.services.ai_triage.AiTriageDataExtractor;
 import com.postech.hackaton.application.services.ai_triage.AiTriagePromptFactory;
@@ -25,14 +26,15 @@ public class MedicalCareController {
     public MedicalCareController(
             MedicalCareRepository repository,
             AiTriageGateway aiTriageGateway,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            EmailGateway emailGateway
     ) {
         var medicalCareGateway = new MedicalCareGatewayImpl(repository);
 
         this.listMedicalCareWithoutPriorityUseCase = new ListMedicalCareWithoutPriorityUseCase(medicalCareGateway);
         this.listMedicalCareWithPriorityUseCase = new ListMedicalCareWithPriorityUseCase(medicalCareGateway);
         this.findMedicalCareByIdUseCase = new FindMedicalCareByIdUseCase(medicalCareGateway);
-        this.prioritizeMedicalCareUseCase = new PrioritizeMedicalCareUseCase(medicalCareGateway);
+        this.prioritizeMedicalCareUseCase = new PrioritizeMedicalCareUseCase(medicalCareGateway, emailGateway);
 
         var extractor = new AiTriageDataExtractor();
         var promptFactory = new AiTriagePromptFactory(objectMapper);

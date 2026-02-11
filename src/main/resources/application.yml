@@ -34,6 +34,18 @@ spring:
     show-sql: true
     database: postgresql
 
+  mail:
+    host: ${SPRING_MAIL_HOST:localhost}
+    port: ${SPRING_MAIL_PORT:1025}
+    username: "${SPRING_MAIL_USERNAME:root}"
+    password: "${SPRING_MAIL_PASSWORD:root}"
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
 management:
   endpoints:
     web:

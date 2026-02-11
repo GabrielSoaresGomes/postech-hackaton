@@ -2,6 +2,7 @@ package com.postech.hackaton.infrastructure.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.postech.hackaton.application.gateways.AiTriageGateway;
+import com.postech.hackaton.application.gateways.EmailGateway;
 import com.postech.hackaton.dtos.requests.medical_care.CreateMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.requests.medical_care.ListMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.responses.medical_care.MedicalCareResponseDTO;
@@ -25,9 +26,10 @@ public class MedicalCareRestController {
     public MedicalCareRestController(
             MedicalCareRepository medicalCareRepository,
             AiTriageGateway aiTriageGateway,
-            ObjectMapper objectMapper
+            ObjectMapper objectMapper,
+            EmailGateway emailGateway
     ) {
-        this.medicalCareController = new MedicalCareController(medicalCareRepository, aiTriageGateway, objectMapper);
+        this.medicalCareController = new MedicalCareController(medicalCareRepository, aiTriageGateway, objectMapper, emailGateway);
     }
 
     @GetMapping("without-priority")
