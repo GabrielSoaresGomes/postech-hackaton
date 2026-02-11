@@ -38,8 +38,8 @@ public class PrioritizeMedicalCareUseCase implements UseCase<Long, MedicalCare> 
     }
 
     private void sendMessage(String phoneNumber) {
-        var subject = "Seu atendimento foi priorizado";
-        var body = "Olá, seu atendimento foi priorizado e está em andamento, se dirija a recepção.";
+        var subject = "Atualização do seu atendimento";
+        var body = "Olá, seu atendimento foi liberado e está em andamento, se dirija a recepção.";
         try {
             emailGateway.send(phoneNumber, subject, body);
         } catch (Exception e) {

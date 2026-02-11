@@ -87,4 +87,11 @@ public class MedicalCareRestController {
     public MedicalCareResponseDTO prioritize(@PathVariable("id") long id) {
         return this.medicalCareController.prioritize(id);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/call-next")
+    @Operation(summary = "Call next medical care")
+    public MedicalCareResponseDTO callNext(@RequestParam("priority") boolean priority) {
+        return this.medicalCareController.callNext(priority);
+    }
 }
