@@ -5,11 +5,7 @@ import com.postech.hackaton.application.gateways.AiTriageGateway;
 import com.postech.hackaton.application.services.ai_triage.AiTriageApplier;
 import com.postech.hackaton.application.services.ai_triage.AiTriageDataExtractor;
 import com.postech.hackaton.application.services.ai_triage.AiTriagePromptFactory;
-import com.postech.hackaton.application.usecases.medical_care.CreateMedicalCareUseCase;
-import com.postech.hackaton.application.usecases.medical_care.FindMedicalCareByIdUseCase;
-import com.postech.hackaton.application.usecases.medical_care.ListMedicalCareUseCase;
-import com.postech.hackaton.application.usecases.medical_care.PrioritizeMedicalCareUseCase;
-import com.postech.hackaton.application.usecases.medical_care.PrioritizeMedicalCareUseCase;
+import com.postech.hackaton.application.usecases.medical_care.*;
 import com.postech.hackaton.dtos.requests.medical_care.CreateMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.requests.medical_care.ListMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.responses.medical_care.MedicalCareResponseDTO;
@@ -20,7 +16,8 @@ import com.postech.hackaton.interface_adapter.presenters.MedicalCarePresenter;
 import java.util.List;
 
 public class MedicalCareController {
-    private final ListMedicalCareUseCase listMedicalCareUseCase;
+    private final ListMedicalCareWithoutPriorityUseCase listMedicalCareWithoutPriorityUseCase;
+    private final ListMedicalCareWithPriorityUseCase listMedicalCareWithPriorityUseCase;
     private final FindMedicalCareByIdUseCase findMedicalCareByIdUseCase;
     private final CreateMedicalCareUseCase createMedicalCareUseCase;
     private final PrioritizeMedicalCareUseCase prioritizeMedicalCareUseCase;
@@ -32,7 +29,8 @@ public class MedicalCareController {
     ) {
         var medicalCareGateway = new MedicalCareGatewayImpl(repository);
 
-        this.listMedicalCareUseCase = new ListMedicalCareUseCase(medicalCareGateway);
+        this.listMedicalCareWithoutPriorityUseCase = new ListMedicalCareWithoutPriorityUseCase(medicalCareGateway);
+        this.listMedicalCareWithPriorityUseCase = new ListMedicalCareWithPriorityUseCase(medicalCareGateway);
         this.findMedicalCareByIdUseCase = new FindMedicalCareByIdUseCase(medicalCareGateway);
         this.prioritizeMedicalCareUseCase = new PrioritizeMedicalCareUseCase(medicalCareGateway);
 
@@ -49,8 +47,14 @@ public class MedicalCareController {
         );
     }
 
-    public List<MedicalCareResponseDTO> list(ListMedicalCareRequestDTO request) {
-        var medicalCares = this.listMedicalCareUseCase.execute(request);
+    public List<MedicalCareResponseDTO> listWithoutPriority(ListMedicalCareRequestDTO request) {
+        var medicalCares = this.listMedicalCareWithoutPriorityUseCase.execute(request);
+
+        return MedicalCarePresenter.medicalCareListToMedicalCareResponseDTOList(medicalCares);
+    }
+
+    public List<MedicalCareResponseDTO> listWithPriority(ListMedicalCareRequestDTO request) {
+        var medicalCares = this.listMedicalCareWithPriorityUseCase.execute(request);
 
         return MedicalCarePresenter.medicalCareListToMedicalCareResponseDTOList(medicalCares);
     }

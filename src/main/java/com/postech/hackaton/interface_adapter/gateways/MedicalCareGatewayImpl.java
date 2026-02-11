@@ -18,7 +18,15 @@ public class MedicalCareGatewayImpl implements MedicalCareGateway {
 
     @Override
     public List<MedicalCare> findAll(Pageable pageable) {
-        return this.repository.findAll(pageable.getPageSize(), pageable.getOffset())
+        return this.repository.findAll(pageable.getPageSize(), pageable.getOffset(), pageable.getSort())
+                .stream()
+                .map(MedicalCareMapper::toMedicalCare)
+                .toList();
+    }
+
+    @Override
+    public List<MedicalCare> findAll(Pageable pageable, Boolean priorityAccess) {
+        return this.repository.findAll(pageable.getPageSize(), pageable.getOffset(), pageable.getSort(), priorityAccess)
                 .stream()
                 .map(MedicalCareMapper::toMedicalCare)
                 .toList();

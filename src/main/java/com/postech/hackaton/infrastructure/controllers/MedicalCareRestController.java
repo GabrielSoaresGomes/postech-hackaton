@@ -30,16 +30,28 @@ public class MedicalCareRestController {
         this.medicalCareController = new MedicalCareController(medicalCareRepository, aiTriageGateway, objectMapper);
     }
 
-    @GetMapping
+    @GetMapping("without-priority")
     @Operation(summary = "List medical cares by page")
-    public List<MedicalCareResponseDTO> list(
+    public List<MedicalCareResponseDTO> listWithoutPriority(
             @RequestParam("page") int page,
             @RequestParam("size") int size
     ) {
         var request = new ListMedicalCareRequestDTO(page, size);
 
-        return this.medicalCareController.list(request);
+        return this.medicalCareController.listWithoutPriority(request);
     }
+
+    @GetMapping("with-priority")
+    @Operation(summary = "List medical cares with priority by page")
+    public List<MedicalCareResponseDTO> listWithPriority(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ) {
+        var request = new ListMedicalCareRequestDTO(page, size);
+
+        return this.medicalCareController.listWithPriority(request);
+    }
+
 
     @GetMapping("{id}")
     @Operation(summary = "Find one medical care")

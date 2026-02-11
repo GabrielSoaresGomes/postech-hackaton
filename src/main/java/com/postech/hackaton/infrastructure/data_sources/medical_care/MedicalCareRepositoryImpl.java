@@ -6,6 +6,7 @@ import com.postech.hackaton.infrastructure.mappers.MedicalCareEntityMapper;
 import com.postech.hackaton.interface_adapter.data_sources.repositories.MedicalCareRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,6 +28,30 @@ public class MedicalCareRepositoryImpl implements MedicalCareRepository {
         var pageRequest = PageRequest.of((int) offset / size, size);
 
         return this.jpaRepository.findAll(pageRequest)
+                .stream()
+                .map(MedicalCareEntityMapper::toMedicalCareDTO)
+                .toList();
+    }
+
+    @Override
+    public List<MedicalCareDTO> findAll(int size, long offset, Sort sort) {
+        var pageRequest = PageRequest.of((int) offset / size, size, sort);
+
+        return this.jpaRepository.findAll(pageRequest)
+                .stream()
+                .map(MedicalCareEntityMapper::toMedicalCareDTO)
+                .toList();
+    }
+
+    @Override
+    public List<MedicalCareDTO> findAll(int size, long offset, Sort sort, Boolean priorityAccess) {
+        var pageRequest = PageRequest.of((int) offset / size, size, sort);
+
+        if (priorityAccess == null) {
+            return this.findAll(size, offset, sort);
+        }
+
+        return this.jpaRepository.findByPriorityAccess(priorityAccess, pageRequest)
                 .stream()
                 .map(MedicalCareEntityMapper::toMedicalCareDTO)
                 .toList();
