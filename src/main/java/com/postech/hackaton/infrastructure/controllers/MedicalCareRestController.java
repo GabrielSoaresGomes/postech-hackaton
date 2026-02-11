@@ -82,9 +82,9 @@ public class MedicalCareRestController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PostMapping("/prioritize")
+    @PatchMapping("/prioritize/{id}")
     @Operation(summary = "Prioritize medical care")
-    public MedicalCareResponseDTO prioritize(@RequestParam("id") long id) {
+    public MedicalCareResponseDTO prioritize(@PathVariable("id") long id) {
         return this.medicalCareController.prioritize(id);
     }
 }

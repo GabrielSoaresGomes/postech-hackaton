@@ -8,5 +8,5 @@ interface CrudGateway<E, ID> {
     List<E> findAll(Pageable pageable);
     E save(E entity);
     E update(E entity, ID id);
-    void delete(ID id);
+    Integer delete(ID id);
 }

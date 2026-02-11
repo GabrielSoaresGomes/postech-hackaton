@@ -1,6 +1,9 @@
 package com.postech.hackaton.exceptions;
 
-public class UserAlreadyExistsException extends RuntimeException {
-    public UserAlreadyExistsException(String message) { super(message); }
-    public UserAlreadyExistsException(String message, Throwable cause) { super(message, cause); }
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+public class UserAlreadyExistsException extends ResponseStatusException {
+    public UserAlreadyExistsException(HttpStatus httpStatus, String message) { super(httpStatus, message); }
+    public UserAlreadyExistsException(HttpStatus httpStatus, String message, Throwable throwable) { super(httpStatus, message, throwable); }
 }

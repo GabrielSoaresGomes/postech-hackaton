@@ -1,7 +1,7 @@
 package com.postech.hackaton.infrastructure.controllers;
 
 import com.postech.hackaton.dtos.requests.LoginRequest;
-import com.postech.hackaton.dtos.requests.CreateUserRequest;
+import com.postech.hackaton.dtos.requests.user.CreateUserRequestDTO;
 import com.postech.hackaton.dtos.responses.UserResponse;
 import com.postech.hackaton.dtos.security.JwtToken;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,13 +30,13 @@ public class AuthController {
 
     @PostMapping("/register")
     @Operation(summary = "Register new user", description = "Create a new user account")
-    public ResponseEntity<UserResponse> register(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<UserResponse> register(@RequestBody CreateUserRequestDTO request) {
         UserResponse response = UserResponse.builder()
                 .id(1L)
-                .userType(request.getUserType())
-                .name(request.getName())
-                .email(request.getEmail())
-                .login(request.getLogin())
+                .userType(request.userType())
+                .name(request.name())
+                .email(request.email())
+                .login(request.login())
                 .build();
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

@@ -31,6 +31,9 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
     @Column(name = "last_modified_date_time")
     private LocalDateTime lastModifiedDateTime;
 }

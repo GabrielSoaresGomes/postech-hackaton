@@ -61,7 +61,8 @@ public class MedicalCareGatewayImpl implements MedicalCareGateway {
     }
 
     @Override
-    public void delete(Long aLong) {
+    public Integer delete(Long aLong) {
         // TODO implementar
+        return 0;
     }
 }

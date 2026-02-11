@@ -194,8 +194,8 @@ public interface ScreeningGateway {
 
 import com.postech.hackaton.domain.User;
 import com.postech.hackaton.application.gateways.UserGateway;
-import com.postech.hackaton.infrastructure.data_sources.UserRepository;
-import com.postech.hackaton.infrastructure.mappers.UserMapper;
+import com.postech.hackaton.infrastructure.data_sources.user.UserJpaRepository;
+import com.postech.hackaton.infrastructure.mappers.UserEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.Optional;
@@ -393,7 +393,7 @@ public class GetScreeningUseCase {
     f"{base_path}/infrastructure/controllers/AuthController.java": '''package com.postech.hackaton.infrastructure.controllers;
 
 import com.postech.hackaton.dtos.requests.LoginRequest;
-import com.postech.hackaton.dtos.requests.CreateUserRequest;
+import com.postech.hackaton.dtos.requests.user.CreateUserRequestDTO;
 import com.postech.hackaton.dtos.responses.UserResponse;
 import com.postech.hackaton.dtos.security.JwtToken;
 import io.swagger.v3.oas.annotations.Operation;

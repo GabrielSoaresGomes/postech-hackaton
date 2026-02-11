@@ -7,16 +7,16 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 @ToString
 public class User {
-    private Long id;
-    private String userType;
-    private String name;
-    private String email;
-    private String login;
-    private String password;
-    private LocalDateTime lastModifiedDateTime;
+    private final Long id;
+    private final String userType;
+    private final String name;
+    private final String email;
+    private final String login;
+    private final String password;
+    private final LocalDateTime lastModifiedDateTime;
 
     public User(Long id, @NonNull String userType, @NonNull String name, String email,
-                @NonNull String login, @NonNull String password, @NonNull LocalDateTime lastModifiedDateTime) {
+                @NonNull String login, @NonNull String password, LocalDateTime lastModifiedDateTime) {
         this.id = id;
         this.userType = userType;
         this.name = name;
