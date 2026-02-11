@@ -93,4 +93,38 @@ public class MedicalCare {
                 this.deletedAt
         );
     }
+
+    public MedicalCare withPriority(MedicalCarePriority newPriority) {
+        return new MedicalCare(
+                this.id,
+                this.document,
+                this.age,
+                newPriority,
+                this.description,
+                this.aiJustification,
+                this.priorityAccess,
+                this.phoneNumber,
+                this.status,
+                this.createdAt,
+                LocalDateTime.now(),
+                this.deletedAt
+        );
+    }
+
+    public MedicalCare withPriorityAccess(@NonNull Boolean newPriorityAccess) {
+        return new MedicalCare(
+                this.id,
+                this.document,
+                this.age,
+                this.priority,
+                this.description,
+                this.aiJustification,
+                newPriorityAccess,
+                this.phoneNumber,
+                this.status,
+                this.createdAt,
+                LocalDateTime.now(),
+                this.deletedAt
+        );
+    }
 }

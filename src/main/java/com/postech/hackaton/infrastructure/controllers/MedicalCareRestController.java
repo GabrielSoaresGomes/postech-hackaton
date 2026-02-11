@@ -5,11 +5,14 @@ import com.postech.hackaton.application.gateways.AiTriageGateway;
 import com.postech.hackaton.application.gateways.EmailGateway;
 import com.postech.hackaton.dtos.requests.medical_care.CreateMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.requests.medical_care.ListMedicalCareRequestDTO;
+import com.postech.hackaton.dtos.requests.medical_care.UpdateMedicalCareDataRequestDTO;
+import com.postech.hackaton.dtos.requests.medical_care.UpdateMedicalCareRequestDTO;
 import com.postech.hackaton.dtos.responses.medical_care.MedicalCareResponseDTO;
 import com.postech.hackaton.interface_adapter.controllers.MedicalCareController;
 import com.postech.hackaton.interface_adapter.data_sources.repositories.MedicalCareRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +69,16 @@ public class MedicalCareRestController {
     @Operation(summary = "Create medical cares")
     public MedicalCareResponseDTO create(@RequestBody CreateMedicalCareRequestDTO request) {
         return this.medicalCareController.create(request);
+    }
+
+    @PutMapping("{id}")
+    @Operation(summary = "Update medical cares")
+    public MedicalCareResponseDTO update(
+            @RequestBody @Valid UpdateMedicalCareDataRequestDTO request,
+            @PathVariable(value = "id") Long id
+    ) {
+        var updateRequest = new UpdateMedicalCareRequestDTO(id, request);
+        return this.medicalCareController.update(updateRequest);
     }
 
     @ResponseStatus(HttpStatus.OK)
