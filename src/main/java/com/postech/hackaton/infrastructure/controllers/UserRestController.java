@@ -52,15 +52,15 @@ public class UserRestController {
         return this.userController.list(request);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     @Operation(summary = "Get user by ID")
-    public UserResponse getById(@PathVariable Long id) {
+    public UserResponse getById(@PathVariable("id") Long id) {
         return this.userController.find(id);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete user")
-    public Integer delete(@PathVariable Long id) {
+    public Integer delete(@PathVariable("id") Long id) {
         return this.userController.delete(id);
     }
 }
